@@ -1,7 +1,7 @@
  # /usr/bin/python
 
 from .prestashop import copy_src, install
-from .config import ( MYSQL_HOST, MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD )
+#from .config import ( MYSQL_HOST, MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD )
 import sh, os
 from sh import mysqldump, cp, mysql#, docker
 from .utils import logi
@@ -63,28 +63,30 @@ def copy_templates(release):
     cp("./images/Dockerfile", release_dir)
 
 
-def setup(release):
-    install_dir = _install_dir(release)
-    database_name = _database_name(release)
+def setup(db_config, shop_config):
+    install_dir   = _install_dir(release = shop_config['SHOP_PRESTASHOP_RELEASE'])
+    database_name = _database_name(release = shop_config['SHOP_PRESTASHOP_RELEASE'])
 
     if not os.path.isdir( install_dir ):
 
-        remove_database(MYSQL_USER, MYSQL_PASSWORD, database_name)
-        copy_src(installDir = install_dir, release = release)
+        remove_database(db_config['MYSQL_USER'], db_config['MYSQL_PASSWORD'], database_name)
+        copy_src(installDir = install_dir, release = shop_config['SHOP_PRESTASHOP_RELEASE'])
 
         install(installDir  = install_dir, 
                 domain      = DOMAIN_NAME, 
-                db_server   = MYSQL_HOST,
+                db_server   = db_config['MYSQL_HOST'],
                 db_name     = database_name, 
-                db_user     = MYSQL_USER, 
-                db_password = MYSQL_PASSWORD)
+                db_user     = db_config['MYSQL_USER'], 
+                db_password = db_config['MYSQL_PASSWORD'])
 
-        dump_database(release, db_user = MYSQL_USER, db_password = MYSQL_PASSWORD)
+        dump_database(release = shop_config['SHOP_PRESTASHOP_RELEASE'], db_user = db_config['MYSQL_USER'], db_password = db_config['MYSQL_PASSWORD'])
     else:
-        logi( "The instance '{}' ".format(release) + 'already exist ...' )
-    copy_templates(release)
+        logi( "The instance '{}' ".format(shop_config['SHOP_PRESTASHOP_RELEASE']) + 'already exist ...' )
+    #copy_templates(release)
 
 
+
+# @deprecated
 def _image_exists(image_name):
     r = docker("images", "-q", image_name)
     if r=="":
