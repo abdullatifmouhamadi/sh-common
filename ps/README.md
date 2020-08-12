@@ -9,7 +9,24 @@ sudo pacman -S libmcrypt zlib gmp freetype2 libjpeg-turbo libpng
 
 sudo pacman -S musl mariadb-clients
 
+```
 
+
+```
+/etc/php72/php.ini
+
+mysqli
+gd
+pdo_mysql
+intl
+iconv
+
+```
+
+
+
+```
+https://websiteforstudents.com/how-to-install-prestashop-on-ubuntu-20-04-18-04-with-nginx-and-lets-encrypt/
 ```
 
 
