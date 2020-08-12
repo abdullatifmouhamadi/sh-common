@@ -36,8 +36,13 @@ yay -S php72-fpm php72-imagick php72-gd php72-mcrypt php72-apcu php72-apcu-bc ph
 
 ```
 
-## conf
+## install
 ```
+
+cd /tmp
+wget https://download.prestashop.com/download/releases/prestashop_1.7.6.5.zip
+unzip prestashop_*.zip
+
 
 sudo mkdir -p /srv/http/prestashop
 sudo unzip prestashop.zip -d /srv/http/prestashop
