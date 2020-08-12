@@ -39,12 +39,14 @@ yay -S php72-fpm php72-imagick php72-gd php72-mcrypt php72-apcu php72-apcu-bc ph
 ## conf
 ```
 
-find /usr/html/ -type f -exec chmod 644 {} \; && find /usr/html/ -type d -exec chmod 755 {} \;
+sudo mkdir -p /srv/http/prestashop
+sudo unzip prestashop.zip -d /srv/http/prestashop
 
 
-find /home/abdullatif/apps/prestashop_1.7.6.7/prestashop/ -type f -exec chmod 644 {} \; && find /home/abdullatif/apps/prestashop_1.7.6.7/prestashop/ -type d -exec chmod 755 {} \;
+sudo chown -R http:http /srv/http/prestashop
+sudo chmod -R 755 /srv/http/prestashop
 
-sudo chown -R http:http /home/abdullatif/apps/prestashop_1.7.6.7/prestashop/
+
 
 ```
 
