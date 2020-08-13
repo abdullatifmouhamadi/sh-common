@@ -5,7 +5,7 @@ from .prestashop import copy_src, install
 import sh, os
 from sh import mysqldump, cp, mysql#, docker
 from .utils import logi
-from .config import INSTANCES_DIR, DOMAIN_NAME
+from .config import INSTANCES_DIR, TEMPLATE_DOMAIN_NAME
 
 """
 def _release_dir(release):
@@ -29,16 +29,24 @@ def _database_name(release):
     db_name = "prestashop" + release_name
     return db_name
 
+# @deprecated
+"""
 def _dump_filename(release):
     database_name = _database_name(release)
     dump          = database_name + '.sql'
     return dump
+"""
 
+
+# @deprecated
+"""
 def dump_path( release ):
     filename    = _dump_filename(release)
     release_dir = _release_dir(release)
     path        = release_dir + filename
     return path
+"""
+
 
 def loge(msg):
     print( "[error] => " + msg )
@@ -57,44 +65,50 @@ def remove_database(db_user, db_password, db_name):
     logi("Removing db '{}' ...".format(db_name))
     mysql("-u", db_user, "-p" + db_password , "-e", "DROP DATABASE IF EXISTS {}".format( db_name ) )
 
+
+# @deprecated
+"""
 def copy_templates(release):
     release_dir   = _release_dir(release)
     cp("-arf", './images/files', release_dir)
     cp("./images/Dockerfile", release_dir)
+"""
 
+def setup(installDir, config):
+    #install_dir   = _install_dir(release = config['SHOP_PRESTASHOP_RELEASE'])
+    #database_name = _database_name(release = config['SHOP_PRESTASHOP_RELEASE'])
 
-def setup(db_config, shop_config):
-    install_dir   = _install_dir(release = shop_config['SHOP_PRESTASHOP_RELEASE'])
-    database_name = _database_name(release = shop_config['SHOP_PRESTASHOP_RELEASE'])
+    if not os.path.isdir( installDir ):
 
-    if not os.path.isdir( install_dir ):
+        #remove_database(config['MYSQL_USER'], config['MYSQL_PASSWORD'], database_name)
+        copy_src(installDir = installDir, release = config['SHOP_PRESTASHOP_RELEASE'])
 
-        remove_database(db_config['MYSQL_USER'], db_config['MYSQL_PASSWORD'], database_name)
-        copy_src(installDir = install_dir, release = shop_config['SHOP_PRESTASHOP_RELEASE'])
+        install(installDir  = installDir, 
+                domain      = config['SHOP_HOST_DOMAIN'], #TEMPLATE_DOMAIN_NAME, 
+                db_server   = config['MYSQL_HOST'],
+                db_name     = config['SHOP_DB_NAME'],#database_name, 
+                db_user     = config['MYSQL_USER'], 
+                db_password = config['MYSQL_PASSWORD'])
 
-        install(installDir  = install_dir, 
-                domain      = DOMAIN_NAME, 
-                db_server   = db_config['MYSQL_HOST'],
-                db_name     = database_name, 
-                db_user     = db_config['MYSQL_USER'], 
-                db_password = db_config['MYSQL_PASSWORD'])
-
-        dump_database(release = shop_config['SHOP_PRESTASHOP_RELEASE'], db_user = db_config['MYSQL_USER'], db_password = db_config['MYSQL_PASSWORD'])
+        #dump_database(release = config['SHOP_PRESTASHOP_RELEASE'], db_user = config['MYSQL_USER'], db_password = config['MYSQL_PASSWORD'])
     else:
-        logi( "The instance '{}' ".format(shop_config['SHOP_PRESTASHOP_RELEASE']) + 'already exist ...' )
+        logi( "The instance '{}' ".format(config['SHOP_PRESTASHOP_RELEASE']) + 'already exist ...' )
     #copy_templates(release)
 
 
 
 # @deprecated
+"""
 def _image_exists(image_name):
     r = docker("images", "-q", image_name)
     if r=="":
         return False
     return True
-    
+"""
 
 
+
+""" @deprecated
 def build_image(release):
     image_name = _image_name(release)
     release_dir = _release_dir(release)
@@ -105,4 +119,4 @@ def build_image(release):
         logi("Building docker image {}".format(image_name))
         for line in docker('image', 'build', '-t', image_name, release_dir, _iter=True):
             logi(line)
-
+"""

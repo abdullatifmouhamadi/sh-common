@@ -1,6 +1,6 @@
  # /usr/bin/python
 
-from sh import ls, printenv, Command, echo, chown, mkdir, wget, unzip, rm, php, chmod, mv
+from sh import ls, printenv, Command, echo, chown, mkdir, wget, unzip, rm, php72, chmod, mv
 from sh.contrib import git
 import sh, contextlib, os
 from .releases import RELEASES, release_filename, REPO, release_extract_dir
@@ -54,17 +54,17 @@ def install(installDir, domain, db_server, db_name, db_user, db_password):
     log( "Installing from index_cli.php ... " )
     cli = installDir + 'install/index_cli.php' 
 
-    r = php(cli, "--domain={}".format(domain),
-                 "--db_server={}".format(db_server),
-                 "--db_name={}".format(db_name),
-                 "--db_user={}".format(db_user),
-                 "--db_password={}".format(db_password),
-                 "--db_create=1",
-                 "--ssl=0",
-                 "--email=admin@biachara.com",
-                 "--password=admin",
-                 "--language=fr",
-                 "--country=fr")
+    r = php72(cli, "--domain={}".format(domain),
+                   "--db_server={}".format(db_server),
+                   "--db_name={}".format(db_name),
+                   "--db_user={}".format(db_user),
+                   "--db_password={}".format(db_password),
+                   "--db_create=1",
+                   "--ssl=0",
+                   "--email=contact@biachara.com",
+                   "--password=admin",
+                   "--language=fr",
+                   "--country=fr")
     print( r )
 
     log( "Removing install dir ... " )

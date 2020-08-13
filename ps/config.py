@@ -16,7 +16,7 @@ MYSQL_USER     = 'root'
 MYSQL_PASSWORD = 'root'
 """
 
-DOMAIN_NAME    = 'my_very_unique.domain.com'
+TEMPLATE_DOMAIN_NAME    = 'my_very_unique.domain.com'
 
 APP_OWNER      = 'abdullatif:wheel'#'nginx:nginx'
 
