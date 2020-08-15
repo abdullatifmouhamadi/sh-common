@@ -1,6 +1,7 @@
 
 #INSTALL_DIR    = '/srv/http/dockpresta/app/'
-BASE_DIR       = '/home/prestashopd/'
+#BASE_DIR       = '/home/prestashopd/'
+BASE_DIR       = '~/prestashopd/'
 
 
 CACHE_DIR      = BASE_DIR + 'cache/' #'/srv/http/dockpresta/presta-cache/'
