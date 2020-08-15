@@ -19,7 +19,7 @@ MYSQL_PASSWORD = 'root'
 
 TEMPLATE_DOMAIN_NAME    = 'my_very_unique.domain.com'
 
-APP_OWNER      = 'abdullatif:wheel'#'nginx:nginx'
+APP_OWNER      = 'deploy:wheel'#'nginx:nginx'
 
 # INSTANCES
 INSTANCES_DIR  = BASE_DIR + 'instances/' 
