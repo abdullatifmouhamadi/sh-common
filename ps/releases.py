@@ -2,7 +2,8 @@ REPO     = 'https://download.prestashop.com/download/releases/'
 API      = 'https://api.github.com/repos/PrestaShop/PrestaShop/releases'
 RELEASES = [
     '1.7.6.7',
-    '1.7.6.1',
+    '1.7.6.5',
+    '1.7.6.1', # stable
     '1.7.6.0',
     '1.7.5.2',
     '1.7.5.1',
