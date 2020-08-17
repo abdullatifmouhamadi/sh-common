@@ -45,7 +45,8 @@ def copy_src(installDir, release):
     mv(installDir + 'admin', installDir + ADMIN_DIR)
 
     chown("-R", APP_OWNER, installDir)
-    chmod("-R", "777", installDir + 'var/')
+    if os.path.isdir( installDir + 'var/' ): # existe que sur les version recentes de prestashop
+        chmod("-R", "777", installDir + 'var/')
 
 
 # php ./install-dev/index_cli.php --domain=prestashop.ps --db_server=localhost --db_name=XXXXXXXXXX --db_user=XXXXXXXXXX --db_password="XXXXXXXXXX"
@@ -70,11 +71,12 @@ def install(installDir, domain, db_server, db_name, db_user, db_password):
     log( "Removing install dir ... " )
     rm("-rf", installDir + 'install')
 
-    log( "Removing var/cache/prod ...")
-    rm("-rf", installDir + 'var/cache/prod')
+    if os.path.isdir( installDir + 'var/' ): # existe que sur les version recentes de prestashop
+        log( "Removing var/cache/prod ...")
+        rm("-rf", installDir + 'var/cache/prod')
 
-    chown("-R", APP_OWNER, installDir)
-    chmod("-R", "777", installDir + 'var/')
+        chown("-R", APP_OWNER, installDir)
+        chmod("-R", "777", installDir + 'var/')
 
 
 
