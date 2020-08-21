@@ -83,12 +83,14 @@ def setup(installDir, config):
         #remove_database(config['MYSQL_USER'], config['MYSQL_PASSWORD'], database_name)
         copy_src(installDir = installDir, release = config['SHOP_PRESTASHOP_RELEASE'])
 
-        install(installDir  = installDir, 
-                domain      = config['SHOP_HOST_DOMAIN'], #TEMPLATE_DOMAIN_NAME, 
-                db_server   = config['MYSQL_HOST'],
-                db_name     = config['SHOP_DB_NAME'],#database_name, 
-                db_user     = config['MYSQL_USER'], 
-                db_password = config['MYSQL_PASSWORD'])
+        install(installDir      = installDir, 
+                domain          = config['SHOP_HOST_DOMAIN'], #TEMPLATE_DOMAIN_NAME, 
+                db_server       = config['MYSQL_HOST'],
+                db_name         = config['SHOP_DB_NAME'],#database_name, 
+                db_user         = config['MYSQL_USER'], 
+                db_password     = config['MYSQL_PASSWORD'],
+                admin_email     = config['ADMIN_EMAIL'],
+                admin_password  = config['ADMIN_PASSWORD'])
 
         #dump_database(release = config['SHOP_PRESTASHOP_RELEASE'], db_user = config['MYSQL_USER'], db_password = config['MYSQL_PASSWORD'])
     else:

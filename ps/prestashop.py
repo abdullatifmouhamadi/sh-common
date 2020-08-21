@@ -51,7 +51,7 @@ def copy_src(installDir, release):
 
 # php ./install-dev/index_cli.php --domain=prestashop.ps --db_server=localhost --db_name=XXXXXXXXXX --db_user=XXXXXXXXXX --db_password="XXXXXXXXXX"
 
-def install(installDir, domain, db_server, db_name, db_user, db_password):
+def install(installDir, domain, db_server, db_name, db_user, db_password, admin_email, admin_password):
     log( "Installing from index_cli.php ... " )
     cli = installDir + 'install/index_cli.php' 
 
@@ -62,8 +62,8 @@ def install(installDir, domain, db_server, db_name, db_user, db_password):
                    "--db_password={}".format(db_password),
                    "--db_create=1",
                    "--ssl=0",
-                   "--email=contact@biachara.com",
-                   "--password=admin",
+                   "--email={}".format(admin_email),
+                   "--password={}".format(admin_password),
                    "--language=fr",
                    "--country=fr")
     print( r )
