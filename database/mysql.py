@@ -15,7 +15,7 @@ class MYSQLConnection:
 
     def newuserdb(self, db_name, user_password):
         self.execute(statement = "CREATE DATABASE IF NOT EXISTS {}".format(db_name))
-        self.execute(statement = "CREATE USER '{}'@'{}' IDENTIFIED BY '{}';".format(db_name, self.dbhost, user_password))
+        self.execute(statement = "CREATE USER IF NOT EXISTS '{}'@'{}' IDENTIFIED BY '{}';".format(db_name, self.dbhost, user_password))
         self.execute(statement = "GRANT ALL PRIVILEGES ON {}.* TO '{}'@'{}';".format(db_name, db_name, self.dbhost))
         self.execute(statement = "FLUSH PRIVILEGES;")
         return True

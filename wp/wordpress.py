@@ -1,11 +1,13 @@
  # /usr/bin/python
 
-from sh import ls, printenv, Command, echo, chown, mkdir, wget, unzip, rm, php72, chmod, mv, cp
+from sh import ls, printenv, Command, echo, chown, mkdir, wget, unzip, rm, php72, chmod, mv, cp, sed
 from sh.contrib import git
 import sh, contextlib, os
 from .releases import RELEASES, release_filename, REPO, release_extract_dir
 from .config import CACHE_DIR, TMP_DIR, ADMIN_DIR, APP_OWNER
 import sys
+
+from sh_common.database.mysql import MYSQLConnection
 
 from ..common.utils import log, logi
 
@@ -61,7 +63,21 @@ def setup(installDir, config):
                 db_password     = config['MYSQL_PASSWORD'],
                 admin_email     = config['ADMIN_EMAIL'],
                 admin_password  = config['ADMIN_PASSWORD'])
+                
         """
+
+        mysql   = MYSQLConnection(db_host       = config['MYSQL_HOST'], 
+                                  db_user       = config['MYSQL_USER'], 
+                                  db_password   = config['MYSQL_PASSWORD'])
+
+        r       = mysql.newuserdb(db_name       = config['CMS_WORDPRESS_DB_NAME'], 
+                                  user_password = config['CMS_WORDPRESS_DB_PASSWORD'])
+
+        cp(installDir + 'wp-config-sample.php', installDir + 'wp-config.php')
+
+        sed('-i', 's/database_name_here/{}/'.format(config['CMS_WORDPRESS_DB_NAME']), installDir + 'wp-config.php')
+        sed('-i', 's/username_here/{}/'.format(config['CMS_WORDPRESS_DB_NAME']), installDir + 'wp-config.php')
+        sed('-i', 's/password_here/{}/'.format(config['CMS_WORDPRESS_DB_PASSWORD']), installDir + 'wp-config.php')
 
     else:
         logi( "The instance '{}' ".format(config['CMS_WORDPRESS_RELEASE']) + 'already exist ...' )
