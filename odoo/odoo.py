@@ -8,7 +8,7 @@ from .config import CACHE_DIR, TMP_DIR, ADMIN_DIR, APP_OWNER
 import sys
 
 
-from common.utils import log, logi
+from ..common.utils import log, logi
 
 def _pull_release(release):
     if not release in RELEASES:
@@ -22,6 +22,10 @@ def _pull_release(release):
     if not os.path.exists( CACHE_DIR + filename ):
         log( "Downloading release {} ".format( filename ) )
         wget( REPO + filename, "-O", CACHE_DIR + filename)
+    else:
+        logi(title="release alread exists",msg="")
+    
+    return release_path(release)
 
 
 def release_path(release):

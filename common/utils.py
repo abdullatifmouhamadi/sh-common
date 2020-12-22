@@ -1,8 +1,11 @@
 from sh import sed
 
 
-def logi(msg):
-    print( "[info] => " + msg )
+def logi(title, msg):
+    #print( "[info] => " + msg )
+    print("\n[info] => {}\n{}".format(title,msg))
+
+
 
 def log(msg):
     print( "[log] => " + msg )
