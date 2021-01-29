@@ -1,7 +1,7 @@
 
 
 
-pip install googletrans==4.0.0rc1 pygoogletranslation
+pip install googletrans==4.0.0rc1 pygoogletranslation polib
 https://github.com/Saravananslb/py-googletranslation
 https://github.com/ssut/py-googletrans
 
