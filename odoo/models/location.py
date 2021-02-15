@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from models.core_model import CoreModel
+from .core_model import CoreModel
 class Location(CoreModel):
     def __init__(self, *initial_data, **kwargs):
         self._name = None

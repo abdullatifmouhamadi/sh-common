@@ -5,17 +5,17 @@
 # https://www.odoo.com/fr_FR/forum/aide-1/question/update-quantity-on-hand-via-xmlrpc-and-php-82281
 # https://stackoverflow.com/questions/35968674/update-a-product-field-quantity-on-hand-with-xmlrpc
 
-from helper import Helper
+from ..helpers.helper import Helper
 
-from models.product import Product
-from models.supplierinfo import SupplierInfo
-from models.partner import Partner
-from models.location import Location
-from models.product_image import ProductImage
-from models.product import Product
-from models.product_template import ProductTemplate
-from models.product_public_category import ProductPublicCategory
-from models.supplierinfo import SupplierInfo
+from ..models.product import Product
+from ..models.supplierinfo import SupplierInfo
+from ..models.partner import Partner
+from ..models.location import Location
+from ..models.product_image import ProductImage
+from ..models.product import Product
+from ..models.product_template import ProductTemplate
+from ..models.product_public_category import ProductPublicCategory
+from ..models.supplierinfo import SupplierInfo
 
 
 

@@ -1,5 +1,5 @@
-#!/usr/bin/python
-from models.product_template import ProductTemplate
+
+from .product_template import ProductTemplate
 class Product(ProductTemplate):
     def __init__(self, *initial_data, **kwargs):
         self._product_tmpl_id = None
