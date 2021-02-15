@@ -5,7 +5,7 @@
 # https://www.odoo.com/fr_FR/forum/aide-1/question/update-quantity-on-hand-via-xmlrpc-and-php-82281
 # https://stackoverflow.com/questions/35968674/update-a-product-field-quantity-on-hand-with-xmlrpc
 
-from ..helpers.helper import Helper
+from ..helpers.helper import Helper, read_if_exists
 
 from ..models.product import Product
 from ..models.supplierinfo import SupplierInfo
@@ -97,24 +97,26 @@ class ProductImport:
     
     def get_or_create_partner(self, partnerObj):
         domain = [('name','=',partnerObj.name)]
-        model = Helper.read_if_exists(partnerObj.model, domain, ['id']) # nom unique
+        model = read_if_exists(api=self.api, model=partnerObj.model, domain=domain, fields=['id']) # nom unique
         if model == False: # Create a new one
             model = self.api.model(partnerObj.model).create(partnerObj.provide(['name','is_company','customer','supplier']))
         else: # then update and return it
             self.api.write(partnerObj.model, [model[0]['id']],partnerObj.provide(['name','is_company','customer','supplier']))
-        return Partner(Helper.read_if_exists(partnerObj.model, domain, partnerObj.props())[0])
+        return Partner(read_if_exists(api = self.api, model=partnerObj.model, domain=domain, fields=partnerObj.props())[0])
     
     
 
 
     def get_or_create_location(self, locationObj):
         domain = [('name','=',locationObj.name)]
-        model = Helper.read_if_exists(locationObj.model, domain, ['id']) # nom unique
+        model = read_if_exists(api=self.api, model=locationObj.model, domain=domain, fields=[]) # nom unique
+
+        print(model)
         if model == False: # Create a new one
-            model = self.api.model(locationObj.model).create(locationObj.provide(['name','partner_id','usage']))
+            model = self.api.model(locationObj.model).create(locationObj.provide(['name','company_id','usage','active']))
         else: # then update and return it
-            self.api.write(locationObj.model, [model[0]['id']],locationObj.provide(['name','partner_id','usage']))
-        return Location(Helper.read_if_exists(locationObj.model, domain, locationObj.props())[0])
+            self.api.write(locationObj.model, [model[0]['id']],locationObj.provide(['name','company_id','usage','active']))
+        return Location(read_if_exists(api=self.api, model=locationObj.model, domain=domain, fields=locationObj.props())[0])
 
 
 

@@ -19,13 +19,14 @@ class Helper(object):
         else:
             return False
     
+    """
     @staticmethod
     def read_if_exists(model, domain, fields=[]):
         if Helper.exists(model, domain) == True:
             return Helper.api.read(model, domain, fields)
         else:
             return False 
-
+    """
         
     
     @staticmethod
@@ -61,3 +62,19 @@ class Helper(object):
     @staticmethod
     def numInt(val):
         return int(val)
+
+
+
+
+def exists(api, model,domain):
+    if api.count(model, domain) > 0:
+        return True
+    else:
+        return False
+
+
+def read_if_exists(api, model, domain, fields=[]):
+    if exists(api, model, domain) == True:
+        return api.read(model, domain, fields)
+    else:
+        return False 
