@@ -1,0 +1,10 @@
+#!/usr/bin/python
+class Partner:
+    def __init__(self):
+        self._name = None
+        
+        
+        {'name':params['partner_name'],
+         'is_company':True,
+         'customer':False,
+         'supplier':True},['name'])

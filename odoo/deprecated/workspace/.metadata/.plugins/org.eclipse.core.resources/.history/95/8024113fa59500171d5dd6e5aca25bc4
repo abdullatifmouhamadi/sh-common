@@ -1,0 +1,69 @@
+#!/usr/bin/python
+class Product:
+    def __init__(self):
+        
+        self._categ_id = None
+        self._location_id = None
+        self._public_categ_ids = None
+        self._seller_ids= None
+        self._name = None
+        self._barcode = None
+        self._weight = None
+        self._purchase_ok = True
+        self._image = None
+        self._sale_ok = True
+        self._website_published = True
+        self._cost_method = 'standard'
+        self._list_price = None
+        
+
+    def get_categ_id(self):
+        return self._categ_id
+    def get_location_id(self):
+        return self._location_id
+    def get_public_categ_ids(self):
+        return self._public_categ_ids
+    def get_seller_ids(self):
+        return self._seller_ids
+    def get_name(self):
+        return self._name
+    def get_barcode(self):
+        return self._barcode
+    def get_weight(self):
+        return self._weight
+    def get_purchase_ok(self):
+        return self._purchase_ok
+    def get_image(self):
+    def get_sale_ok(self):
+    def get_website_published(self):
+    def get_cost_method(self):
+    def get_list_price(self):
+
+
+    def set_categ_id(self):
+    def set_location_id(self):
+    def set_public_categ_ids(self):
+    def set_seller_ids(self):
+    def set_name(self):
+    def set_barcode(self):
+    def set_weight(self):
+    def set_purchase_ok(self):
+    def set_image(self):
+    def set_sale_ok(self):
+    def set_website_published(self):
+    def set_cost_method(self):
+    def set_list_price(self):
+        
+               
+    
+        
+    def getx(self):
+        return self._x
+
+    def setx(self, value):
+        self._x = value
+
+    x = property(getx, setx, None, "I'm the 'x' property.")
+                                   
+                                   
+    

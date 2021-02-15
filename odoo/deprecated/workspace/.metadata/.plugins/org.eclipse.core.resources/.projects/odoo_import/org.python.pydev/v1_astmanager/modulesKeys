@@ -1,0 +1,7 @@
+MODULES_MANAGER_V2
+helper|/home/abdullatif/Dropbox/ENTREPRENEUR/Resources/Developer/workspace/odoo_import/helper.py
+helpers.attr_dict|/home/abdullatif/Dropbox/ENTREPRENEUR/Resources/Developer/workspace/odoo_import/helpers/attr_dict.py
+main|/home/abdullatif/Dropbox/ENTREPRENEUR/Resources/Developer/workspace/odoo_import/main.py
+models.product_template|/home/abdullatif/Dropbox/ENTREPRENEUR/Resources/Developer/workspace/odoo_import/models/product_template.py
+models.supplierinfo|/home/abdullatif/Dropbox/ENTREPRENEUR/Resources/Developer/workspace/odoo_import/models/supplierinfo.py
+product_import|/home/abdullatif/Dropbox/ENTREPRENEUR/Resources/Developer/workspace/odoo_import/product_import.py

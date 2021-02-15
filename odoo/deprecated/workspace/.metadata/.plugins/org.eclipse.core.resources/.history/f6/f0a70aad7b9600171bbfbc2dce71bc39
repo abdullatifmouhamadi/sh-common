@@ -1,0 +1,17 @@
+#!/usr/bin/python
+from models.core_model import CoreModel
+class ProductTemplate(CoreModel):
+    def __init__(self, *initial_data, **kwargs):
+        self._product_tmpl_id = None
+        CoreModel.__init__(self, *initial_data, **kwargs)
+        self._model = "product.template"
+        
+    def get_product_tmpl_id(self):
+        return self._product_tmpl_id
+
+    def set_product_tmpl_id(self, value):
+        self._product_tmpl_id = value
+    
+    categ_id = property(get_categ_id, set_categ_id, None, "I'm a property.")
+
+        

@@ -1,0 +1,51 @@
+#!/usr/bin/python
+# https://stackoverflow.com/questions/2466191/set-attributes-from-dictionary-in-python
+class CoreModel(object):
+    def __init__(self, *initial_data, **kwargs):
+        self._id = None
+        self._model = None
+        
+        for dictionary in initial_data:
+            for key in dictionary:
+                if hasattr(self,key):
+                    setattr(self, key, dictionary[key])
+                else:
+                    raise ValueError("property '{}' doesn't exists".format(key))
+        for key in kwargs:
+            if hasattr(self,key):
+                setattr(self, key, kwargs[key])
+            else:
+                raise ValueError("property '{}' doesn't exists".format(key))
+    
+    def get_model(self):
+        return self._model
+    
+    def get_id(self):
+        return self._id
+
+    def set_id(self, value):
+        self._id = value
+
+    id = property(get_id, set_id, None, "I'm a property.")
+    model = property(get_model, None, None, "I'm a property.")
+
+
+    def props(self):
+        keys = list(self.__dict__.keys())
+        keys.remove('_model')
+        return [key[1:] for key in keys]
+
+
+    def provide(self, fields = []):
+        res = {}
+        for key in self.__dict__.keys():
+            if (key[1:] in fields) or (fields == []):
+                res[key[1:]] = self.__dict__[key]
+        return res
+    
+    def __str__(self, *args, **kwargs):
+        return('\n'.join("%s: %s" % item+'@' for item in self.__dict__.items()))
+    
+    
+    
+    

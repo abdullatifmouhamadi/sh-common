@@ -1,0 +1,10 @@
+#!/usr/bin/python
+from models.core_model import CoreModel
+class Location(CoreModel):
+    def __init__(self, *initial_data, **kwargs):
+        self._name = None
+        self._partner_id = None
+        self._usage = 'supplier'                                      
+        CoreModel.__init__(self, *initial_data, **kwargs)
+
+

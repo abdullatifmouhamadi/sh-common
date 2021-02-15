@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="supplierinfo" key="selection"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="supplierinfo"/>
+			<item value="location"/>
+			<item value="    def __init__(self, *initial_data, **kwargs):&#x0A;        self._categ_id = None&#x0A;        self._location_id = None&#x0A;        self._public_categ_ids = None&#x0A;        self._seller_ids= None&#x0A;        self._name = None&#x0A;        self._barcode = None&#x0A;        self._weight = None&#x0A;        self._purchase_ok = True&#x0A;        self._image = None&#x0A;        self._sale_ok = True&#x0A;        self._website_published = True&#x0A;        self._cost_method = &apos;standard&apos;&#x0A;        self._list_price = None&#x0A;        self._standard_price = None&#x0A;        CoreModel.__init__(self, *initial_data, **kwargs)&#x0A;        self._model = &quot;product.product&quot;&#x0A;        &#x0A;    def get_categ_id(self):&#x0A;        return self._categ_id&#x0A;    def get_location_id(self):&#x0A;        return self._location_id&#x0A;    def get_public_categ_ids(self):&#x0A;        return self._public_categ_ids&#x0A;    def get_seller_ids(self):&#x0A;        return self._seller_ids&#x0A;    def get_name(self):&#x0A;        return self._name&#x0A;    def get_barcode(self):&#x0A;        return self._barcode&#x0A;    def get_weight(self):&#x0A;        return self._weight&#x0A;    def get_purchase_ok(self):&#x0A;        return self._purchase_ok&#x0A;    def get_image(self):&#x0A;        return self._image&#x0A;    def get_sale_ok(self):&#x0A;        return self._sale_ok&#x0A;    def get_website_published(self):&#x0A;        return self._website_published&#x0A;    def get_cost_method(self):&#x0A;        return self._cost_method&#x0A;    def get_list_price(self):&#x0A;        return self._list_price&#x0A;    def get_standard_price(self):&#x0A;        return self._standard_price&#x0A;&#x0A;    def set_categ_id(self, value):&#x0A;        self._categ_id = value&#x0A;    def set_location_id(self, value):&#x0A;        self._location_id = value&#x0A;    def set_public_categ_ids(self, value):&#x0A;        self._public_categ_ids = value&#x0A;    def set_seller_ids(self, value):&#x0A;        self._seller_ids = value&#x0A;    def set_name(self, value):&#x0A;        self._name = value&#x0A;    def set_barcode(self, value):&#x0A;        self._barcode = value&#x0A;    def set_weight(self, value):&#x0A;        self._weight = value&#x0A;    def set_purchase_ok(self, value):&#x0A;        self._purchase_ok = value&#x0A;    def set_image(self, value):&#x0A;        self._image = value&#x0A;    def set_sale_ok(self, value):&#x0A;        self._sale_ok = value&#x0A;    def set_website_published(self, value):&#x0A;        self._website_published = value&#x0A;    def set_cost_method(self, value):&#x0A;        self._cost_method = value&#x0A;    def set_list_price(self, value):&#x0A;        self._list_price = value&#x0A;    def set_standard_price(self, value):&#x0A;        self._standard_price = value&#x0A;    &#x0A;    categ_id = property(get_categ_id, set_categ_id, None, &quot;I&apos;m a property.&quot;)&#x0A;    location_id = property(get_location_id, set_location_id, None, &quot;I&apos;m a property.&quot;)&#x0A;    public_categ_ids = property(get_public_categ_ids, set_public_categ_ids, None, &quot;I&apos;m a property.&quot;)&#x0A;    seller_ids= property(get_seller_ids, set_seller_ids, None, &quot;I&apos;m a property.&quot;)&#x0A;    name = property(get_name, set_name, None, &quot;I&apos;m a property.&quot;)&#x0A;    barcode = property(get_barcode, set_barcode, None, &quot;I&apos;m a property.&quot;)&#x0A;    weight = property(get_weight, set_weight, None, &quot;I&apos;m a property.&quot;)&#x0A;    purchase_ok = property(get_purchase_ok, set_purchase_ok, None, &quot;I&apos;m a property.&quot;)&#x0A;    image = property(get_image, set_image, None, &quot;I&apos;m a property.&quot;)&#x0A;    sale_ok = property(get_sale_ok, set_sale_ok, None, &quot;I&apos;m a property.&quot;)&#x0A;    website_published = property(get_website_published, set_website_published, None, &quot;I&apos;m a property.&quot;)&#x0A;    cost_method = property(get_cost_method, set_cost_method, None, &quot;I&apos;m a property.&quot;)&#x0A;    list_price = property(get_list_price, set_list_price, None, &quot;I&apos;m a property.&quot;)&#x0A;    standard_price = property(get_standard_price, set_standard_price, None, &quot;I&apos;m a property.&quot;)&#x0A;    "/>
+			<item value="HTTPError"/>
+			<item value=".read()["/>
+			<item value="Record"/>
+			<item value="wizard"/>
+			<item value="execute"/>
+			<item value="execute_kw"/>
+			<item value="create("/>
+			<item value="search"/>
+			<item value="class "/>
+			<item value="class"/>
+			<item value="padding"/>
+		</list>
+		<list key="replacehistory">
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="335" key="DIALOG_WIDTH"/>
+		<item value="1|Sans|9.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="428" key="DIALOG_HEIGHT"/>
+		<item value="1512" key="DIALOG_X_ORIGIN"/>
+		<item value="368" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

@@ -1,0 +1,14 @@
+#!/usr/bin/python
+class Partner:
+    def __init__(self):
+        self._name = None
+        self._is_company = True
+        self._customer = False
+        self._supplier = True
+    
+    
+    
+        def get_name(self):
+        def get_is_company(self):
+        def get_customer(self):
+        def get_supplier(self):

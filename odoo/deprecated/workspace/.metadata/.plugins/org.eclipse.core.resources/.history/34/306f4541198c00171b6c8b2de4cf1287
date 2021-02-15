@@ -1,0 +1,122 @@
+#!/usr/bin/python
+
+import erppeek
+import csv
+from helper import Helper
+from product import Product
+
+        
+def main():
+    
+    user = 'bourou01@gmail.com'
+    pwd = 'afandi'
+    dbname = 'HOUDA1'
+    server = 'http://localhost:8069'
+    
+    
+    # http://www.firstclasscomputerconsulting.com/OpenERP/OpenERP70Videos/tabid/145/articleType/ArticleView/articleId/2/Import-data-into-OpenERP-7-using-XML-RPC.aspx
+    api = erppeek.Client(server, dbname,user,pwd)
+    Helper.set_client(api)
+     
+       
+    product = Product(api)
+       
+       
+    prod = api.model('product.product').read([], ['name'])
+    print(prod)
+
+    part = api.model('res.partner').read([], ['name'])
+    print(part)
+
+ 
+ 
+    supp = product.get_or_create_supplierinfo(1, 76, fields=['id','company_id'])
+    print(supp)
+
+
+#    a = product.get_or_create_supplier(42, {'partner_company_name':'VOUB18'}, fields=['id','company_id'])
+#    print (a)
+
+
+
+
+#     model = api.read('product.supplierinfo', [], ['name'])
+#     print(model)
+#     
+#     
+# 
+#     
+#     params = {'partner_name':'MAHOU',
+#               'product_name':'FRAMPE',
+#               'product_barcode':'12345678910',
+#               'product_list_price':12.56,
+#               
+# 
+# 
+#         }
+#     
+# 
+#     product.get_or_create_product_by(params);
+
+
+
+
+
+    
+    
+
+#     model = api.read('res.partner', [('name','=','MAOREDEV2')], [])
+#     print(model)
+#     
+#     
+#     res = api.write('res.partner', [55],{'name':'MAOREDEV2', 
+#                                          'is_company':True,
+#                                          'customer':False,
+#                                          'supplier':True})
+#     print(res)
+# #     
+#     
+#     a = api.model('res.partner').create({'name':'MAOREDEV',
+#                                      'company_type':'company'})
+#     
+#     print(a)
+#     
+   # model = api.read('res.partner', [('name','=','MAOREDEV')], ['id'])
+    
+   # print(model)
+    
+    
+    
+    reader = csv.reader(open('ALL_FK_ARTICLE_fr.csv','r'), delimiter=';')
+    
+    #obj = api. .create(['login': 'joe', 'name': 'Joe'])
+    
+    users_model = api.model('res.users')
+    
+    #res = users_model.create({'login': 'joe', 'name': 'Joe'})
+    
+    #res = api.read('product.template', [('name','=','MAHOU')],[])
+    
+    #print(res)
+    
+    #print('joe existe ? : {}'.format(Helper.exists('res.users',[('login','=','joe')])))
+
+        
+    #photo = Helper.image_url_to_base64('https://i.skyrock.net/8760/84158760/pics/3099810979_1_3_KZYiXeZN.png')
+    
+    #product_image = {
+    #   'name':'maoredev',
+    #    'product_tmpl_id':35,
+    #   'image':photo
+    #}
+    
+    #api.model('res.users').create({'login':'mouhamadi2', 'name':'MOMO','image':photo})
+    
+
+    
+        
+if __name__ == '__main__':
+    main()
+    
+    
+    

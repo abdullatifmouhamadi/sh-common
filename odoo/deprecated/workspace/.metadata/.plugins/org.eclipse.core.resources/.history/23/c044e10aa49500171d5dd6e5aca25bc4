@@ -1,0 +1,47 @@
+#!/usr/bin/python
+class Product:
+    def __init__(self):
+        
+        self._categ_id = None
+        self._location_id = None
+        self._public_categ_ids = None
+        self._seller_ids= None
+        self._name = None
+        self._barcode = None
+        self._weight = None
+        self._purchase_ok = True
+        self._image = None
+        self._sale_ok = True
+        self._website_published = True
+        self._cost_method = 'standard'
+        self._list_price = None
+        
+        
+        
+        
+        def get_categ_id(self):
+        self._location_id = None
+        self._public_categ_ids = None
+        self._seller_ids= None
+        self._name = None
+        self._barcode = None
+        self._weight = None
+        self._purchase_ok = True
+        self._image = None
+        self._sale_ok = True
+        self._website_published = True
+        self._cost_method = 'standard'
+        self._list_price = None
+        
+    
+        
+    def getx(self):
+        return self._x
+
+    def setx(self, value):
+        self._x = value
+
+    x = property(getx, setx, None, "I'm the 'x' property.")
+                                   
+                                   
+    

@@ -1,0 +1,140 @@
+#!/usr/bin/python
+from helper import Helper
+class Product:
+
+    def __init__(self, client):
+        self.api = client
+        self.product = "product.product"
+        self.template = "product.template"
+        self.supplierinfo = "product.supplierinfo"
+        self.image = "product.image"
+        self.stock = "stock.move"
+        self.partner = "res.partner"
+        self.company = "res.company"
+
+    def get_or_create_company(self, params):
+        domain = [('name','=',params['name'])]
+        model = Helper.read_if_exists(self.company, domain, ['id']) # nom unique
+        if model == False: # Create a new one
+            model = self.api.model(self.company).create(params)
+        else: # then update and return it
+            self.api.write(self.company, [model[0]['id']],params)
+        return Helper.read_if_exists(self.company, domain, ['id'])
+    
+    
+    def get_or_create_partner(self, params):
+        domain = [('name','=',params['name'])]
+        model = Helper.read_if_exists(self.partner, domain, ['id']) # nom unique
+        if model == False: # Create a new one
+            model = self.api.model(self.partner).create(params)
+        else: # then update and return it
+            self.api.write(self.partner, [model[0]['id']],params)
+        return Helper.read_if_exists(self.partner, domain, ['id'])
+ 
+ 
+    def get_or_create_partner_company(self, params):
+        domain = [('name','=',params['name'])]
+        model = Helper.read_if_exists(self.partner, domain, ['id']) # nom unique
+        if model == False: # Create a new one
+            company = self.get_or_create_company({'name':params['name']})
+            params['company_id':[(6,0,[ company[0]['id'] ])]]
+            model = self.api.model(self.partner).create(params)
+        else: # then update and return it
+            self.api.write(self.partner, [model[0]['id']],params)
+        return Helper.read_if_exists(self.partner, domain, ['id','company_id'])
+ 
+         
+    def get_or_create_supplier(self, supplier_name, company_id):
+        domain = [('name','=',supplier_name)]
+        model = Helper.read_if_exists(self.supplierinfo, domain, ['id']) # nom unique
+        if model == False: # Create a new one
+            partner_company = self.get_or_create_partner_company({'name':params['name']})
+            
+              
+    
+        
+    def get_or_create_product_by(self, params):
+        
+        
+
+        
+        partner = self.get_or_create_partner({'name':params['partner_name'],
+                                                 'is_company':True,
+                                                 'customer':False,
+                                                 'supplier':True})
+        print(partner[0]['id'])
+        
+        
+        
+        product = self.api.read(self.product, [('barcode','=',params['product_barcode'])], ['id','seller_ids'])
+        if (len(product) == 0):
+            params['product_seller_id'] = partner[0]['id']
+            self.__create_product(params)
+        else:
+            print("voilà")
+            product = self.api.read(self.product, [('barcode','=',params['product_barcode'])], ['id','seller_ids','product_tmpl_id'])
+            print(product)
+            product = self.api.write(self.product, [product[0]['id']], {'list_price':45.7})
+            #product = self.api.write(self.product, )
+
+
+        
+#         condition2 = Helper.read_if_exists(self.product,
+#                                       [(partner[0]['id'],'in','seller_ids'), 
+#                                        ('barcode','=',params['product_barcode'])], # nom unique
+#                                       ['id'])
+#         
+
+
+        
+        
+
+#         print(p)
+#         
+        
+        #if Helper.exists(self.product, [('')])
+        return None
+
+
+    
+    
+    def __create_product(self, params):
+        
+        #{'currency_id':1, 'delay':4, 'min_qty':5, 'name':'DANIATI-CORP'}
+        product = self.api.model(self.product).create({
+                                   'seller_ids':[(0,_,[ 19 ])],
+                                   'name':params['product_name'],
+                                   'barcode':params['product_barcode'],
+                                   'purchase_ok':True,
+                                   'sale_ok':True,
+                                   'website_published':True,
+                                   'cost_method':'standard',
+                                   'list_price':params['product_list_price'],
+                                   'categ_id':1
+        })
+         
+#     
+#         limite = 10
+#     counter = 0
+#     for row in reader:
+#         #print(row)
+#         
+#         product_template = {
+#             'name': row[1],
+#             'standard_price':row[2],
+#             'list_price':row[2],
+#             'mes_type':'fixed',
+#             'uom_id':1,
+#             'uom_po_id':1,
+#             'type':'product',
+#             'procure_method':'make_to_stock',
+#             'cost_method':'standard',
+#             'categ_id':1
+#         }
+#             
+#             
+#         
+#         if counter >= limite:
+#             break 
+#         counter+=1
+        

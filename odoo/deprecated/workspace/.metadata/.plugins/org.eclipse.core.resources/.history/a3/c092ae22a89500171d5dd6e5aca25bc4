@@ -1,0 +1,15 @@
+#!/usr/bin/python
+class SupplierInfo:
+    def __init__(self):
+        
+        self._name = None
+        
+        
+        
+                supplierinfo={'name':params['partner_id'], 
+                      #'product_id':product_id,
+                      'company_id':1,
+                      'currency_id':1,
+                      'delay':7,
+                      'min_qty':1,
+                      'price':params['product_list_price']}

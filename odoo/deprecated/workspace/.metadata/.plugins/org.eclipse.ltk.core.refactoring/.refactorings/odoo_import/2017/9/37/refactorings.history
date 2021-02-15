@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;odoo_import/helpers/AttrDict&apos; to &apos;attr_dict.py&apos;" description="Rename resource &apos;AttrDict&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="helpers/AttrDict" name="attr_dict.py" stamp="1505149805044" updateReferences="true"/>
+</session>

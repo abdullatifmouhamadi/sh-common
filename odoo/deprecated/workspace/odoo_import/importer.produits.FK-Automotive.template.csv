@@ -1,0 +1,39 @@
+Odoo,product.product,FK-Automotive,
+Nom,name,article_nr,
+Code Barre,barcode,ean,
+Fournisseurs,seller_ids,Brand,
+Couleur,color,Color,integer
+,,car_manufacturer,
+,,car_model,
+,,dealer_price_a_netto,
+,,dealer_price_b_netto,
+,,dealer_price_c_netto,
+Poids,weight,Weight,
+Quantité,product_uom_qty,stock,stock.move
+,,uvp_price,
+Prix de vente,list_price,shop_price,
+,,,
+,,,
+,,,
+,,,
+,,title,
+,,short_desc,
+,,long_desc,
+,product_image_ids,picture1,
+,product_image_ids,picture2,
+,product_image_ids,picture3,
+,product_image_ids,picture4,
+,product_image_ids,picture5,
+,product_image_ids,picture6,
+,product_image_ids,picture7,
+,product_image_ids,picture8,
+Catégorie interne,categ_id,category,
+,,,
+,,,
+Peut être acheté,purchase_ok,,1
+Peut être vendu,sale_ok,,1
+Unité de mesure,uom_id,,1
+Unité de mesure d'achat,uom_po_id,,1
+,,,
+,,,
+Visible sur le site web,website_published,,1

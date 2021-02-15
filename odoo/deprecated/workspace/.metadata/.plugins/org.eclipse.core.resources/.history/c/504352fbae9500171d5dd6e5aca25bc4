@@ -1,0 +1,4 @@
+#!/usr/bin/python
+class Partner:
+    def __init__(self):
+        
