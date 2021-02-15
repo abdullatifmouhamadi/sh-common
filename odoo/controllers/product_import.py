@@ -149,7 +149,7 @@ class ProductImport:
     def get_or_create_product(self, productTemplate, newSupplierInfo, partner, location, image_urls, product_stock):
         domain = [('barcode','=',productTemplate.barcode)]
         # On vérifie si un produit existe en fonction d'un codebar donné
-        template = Helper.read_if_exists(productTemplate.model, domain, ['id','seller_ids','product_tmpl_id'])
+        template = read_if_exists(api=self.api, model=productTemplate.model, domain=domain, fields=['id','seller_ids','product_tmpl_id'])
 
         if (template == False): # Le produit n'existe pas du tlout donc on le crée immédiatement
             print("cas1")
@@ -163,7 +163,7 @@ class ProductImport:
                     #Update ProductTemplate
                     template = self.api.read(productTemplate.model, domain, productTemplate.props())
                     tmpProductTemplate = ProductTemplate(template[0])
-                    self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['valuation','type','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale','public_categ_ids']))
+                    self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['valuation','type','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale']))#,'public_categ_ids']))
                     # Update SupplierInfo
                     tmpProduct = self.__get_product_by_product_tmpl_id(tmpProductTemplate.id)
                     
@@ -190,13 +190,13 @@ class ProductImport:
                                                                                   'barcode',
                                                                                   'weight',
                                                                                   'purchase_ok',
-                                                                                  'image',
+                                                                                  #'image',
                                                                                   'sale_ok',
-                                                                                  'website_published',
+                                                                                  #'website_published',
                                                                                   'cost_method',
                                                                                   'list_price',
                                                                                   'categ_id',
-                                                                                  'public_categ_ids',
+                                                                                  #'public_categ_ids',
                                                                                   'standard_price'
                                                                                   'description_sale']))
 
