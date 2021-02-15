@@ -1,4 +1,3 @@
-#!/usr/bin/python
 from .core_model import CoreModel
 class ProductTemplate(CoreModel):
     def __init__(self, *initial_data, **kwargs):

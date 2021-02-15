@@ -7,7 +7,7 @@
 
 from ..helpers.helper import Helper, read_if_exists
 
-from ..models.product import Product
+from ..models.product import Product, ProductCategory
 from ..models.supplierinfo import SupplierInfo
 from ..models.partner import Partner
 from ..models.location import Location
@@ -62,12 +62,22 @@ class ProductImport:
 
     def get_or_create_product_public_category(self, productPublicCategoryObj):
         domain = [('name','=',productPublicCategoryObj.name)]
-        model = Helper.read_if_exists(productPublicCategoryObj.model, domain, ['id']) # nom unique
+        model = read_if_exists(api=self.api, model=productPublicCategoryObj.model, domain=domain, fields=['id']) # nom unique
         if model == False: # Create a new one
             model = self.api.model(productPublicCategoryObj.model).create(productPublicCategoryObj.provide(['name','child_id','parent_id']))
         else: # then update and return it
             self.api.write(productPublicCategoryObj.model, [model[0]['id']],productPublicCategoryObj.provide(['name','child_id','parent_id']))
-        return ProductPublicCategory(Helper.read_if_exists(productPublicCategoryObj.model, domain, productPublicCategoryObj.props())[0])
+        return ProductPublicCategory(read_if_exists(api=self.api, model=productPublicCategoryObj.model, domain=domain, fields=productPublicCategoryObj.props())[0])
+
+    def get_or_create_product_category(self, productCategoryObj):
+        domain = [('name','=',productCategoryObj.name)]
+        model = read_if_exists(api=self.api, model=productCategoryObj.model, domain=domain, fields=['id']) # nom unique
+        if model == False: # Create a new one
+            model = self.api.model(productCategoryObj.model).create(productCategoryObj.provide(['name','child_id','parent_id']))
+        else: # then update and return it
+            self.api.write(productCategoryObj.model, [model[0]['id']],productCategoryObj.provide(['name','child_id','parent_id']))
+        return ProductCategory(read_if_exists(api=self.api, model=productCategoryObj.model, domain=domain, fields=productCategoryObj.props())[0])
+
 
 
 
@@ -103,19 +113,18 @@ class ProductImport:
         else: # then update and return it
             self.api.write(partnerObj.model, [model[0]['id']],partnerObj.provide(['name','is_company','customer','supplier']))
         return Partner(read_if_exists(api = self.api, model=partnerObj.model, domain=domain, fields=partnerObj.props())[0])
-    
-    
+
 
 
     def get_or_create_location(self, locationObj):
         domain = [('name','=',locationObj.name)]
         model = read_if_exists(api=self.api, model=locationObj.model, domain=domain, fields=[]) # nom unique
 
-        print(model)
+        #print(model)
         if model == False: # Create a new one
-            model = self.api.model(locationObj.model).create(locationObj.provide(['name','company_id','usage','active']))
+            model = self.api.model(locationObj.model).create(locationObj.provide(['name','usage','active']))
         else: # then update and return it
-            self.api.write(locationObj.model, [model[0]['id']],locationObj.provide(['name','company_id','usage','active']))
+            self.api.write(locationObj.model, [model[0]['id']],locationObj.provide(['name','usage','active']))
         return Location(read_if_exists(api=self.api, model=locationObj.model, domain=domain, fields=locationObj.props())[0])
 
 
