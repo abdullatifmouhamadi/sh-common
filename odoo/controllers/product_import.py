@@ -17,6 +17,7 @@ from ..models.product_template import ProductTemplate
 from ..models.product_public_category import ProductPublicCategory
 from ..models.supplierinfo import SupplierInfo
 
+from pprint import pprint
 
 
 class ProductImport:
@@ -139,7 +140,7 @@ class ProductImport:
     def get_supplierinfo_by(self, partner_id, product_tmpl_id):
         dummySupplierInfo = SupplierInfo()
         domain = [('name','=',partner_id),('product_tmpl_id','=',product_tmpl_id)]
-        model = Helper.read_if_exists(dummySupplierInfo.model, domain, dummySupplierInfo.props()) # nom unique
+        model = read_if_exists(api=self.api, model=dummySupplierInfo.model, domain=domain, fields=dummySupplierInfo.props()) # nom unique
         if model == False: # Create a new one
             return False
         else:
@@ -149,7 +150,9 @@ class ProductImport:
     def get_or_create_product(self, productTemplate, newSupplierInfo, partner, location, image_urls, product_stock):
         domain = [('barcode','=',productTemplate.barcode)]
         # On vérifie si un produit existe en fonction d'un codebar donné
-        template = read_if_exists(api=self.api, model=productTemplate.model, domain=domain, fields=['id','seller_ids','product_tmpl_id'])
+        template = read_if_exists(api=self.api, model=productTemplate.model, domain=domain, fields=['id','seller_ids']) #id, seller_ids, product_tmplt_id
+
+        pprint(template[0])
 
         if (template == False): # Le produit n'existe pas du tlout donc on le crée immédiatement
             print("cas1")

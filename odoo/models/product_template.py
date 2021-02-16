@@ -3,15 +3,15 @@ class ProductTemplate(CoreModel):
     def __init__(self, *initial_data, **kwargs):
         self._categ_id = None
         self._location_id = None
-        self._public_categ_ids = None
+        #self._public_categ_ids = None
         self._seller_ids= None
         self._name = None
         self._barcode = None
         self._weight = None
         self._purchase_ok = True
-        self._image = None
+        #self._image = None
         self._sale_ok = True
-        self._website_published = True
+        #self._website_published = True
         self._cost_method = 'standard'
         self._list_price = None
         self._standard_price = None
