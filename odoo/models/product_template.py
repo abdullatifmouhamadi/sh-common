@@ -10,6 +10,7 @@ class ProductTemplate(CoreModel):
         self._weight = None
         self._purchase_ok = True
         #self._image = None
+        self._image_1920 = None
         self._sale_ok = True
         #self._website_published = True
         self._cost_method = 'standard'
@@ -18,6 +19,7 @@ class ProductTemplate(CoreModel):
         self._description_sale = None
         self._type = None
         self._valuation = None
+        self._available_in_pos = None
         
         CoreModel.__init__(self, *initial_data, **kwargs)
         self._model = "product.template"
@@ -40,6 +42,8 @@ class ProductTemplate(CoreModel):
         return self._purchase_ok
     def get_image(self):
         return self._image
+    def get_image_1920(self):
+        return self._image_1920
     def get_sale_ok(self):
         return self._sale_ok
     def get_website_published(self):
@@ -56,6 +60,10 @@ class ProductTemplate(CoreModel):
         return self._type
     def get_valuation(self):
         return self._valuation
+    def get_available_in_pos(self):
+        return self._available_in_pos
+
+        
 
     def set_categ_id(self, value):
         self._categ_id = value
@@ -75,6 +83,8 @@ class ProductTemplate(CoreModel):
         self._purchase_ok = value
     def set_image(self, value):
         self._image = value
+    def set_image_1920(self, value):
+        self._image_1920 = value
     def set_sale_ok(self, value):
         self._sale_ok = value
     def set_website_published(self, value):
@@ -91,6 +101,9 @@ class ProductTemplate(CoreModel):
         self._type = value
     def set_valuation(self, value):
         self._valuation = value
+    def set_available_in_pos(self, value):
+        self._available_in_pos = value
+        
     
     categ_id = property(get_categ_id, set_categ_id, None, "I'm a property.")
     location_id = property(get_location_id, set_location_id, None, "I'm a property.")
@@ -101,6 +114,7 @@ class ProductTemplate(CoreModel):
     weight = property(get_weight, set_weight, None, "I'm a property.")
     purchase_ok = property(get_purchase_ok, set_purchase_ok, None, "I'm a property.")
     image = property(get_image, set_image, None, "I'm a property.")
+    image_1920 = property(get_image_1920, set_image_1920, None, "I'm a property.")
     sale_ok = property(get_sale_ok, set_sale_ok, None, "I'm a property.")
     website_published = property(get_website_published, set_website_published, None, "I'm a property.")
     cost_method = property(get_cost_method, set_cost_method, None, "I'm a property.")
@@ -109,7 +123,7 @@ class ProductTemplate(CoreModel):
     description_sale = standard_price = property(get_description_sale, set_description_sale, None, "I'm a property.")
     type = property(get_type, set_type, None, "I'm a property.")
     valuation = property(get_valuation, set_valuation, None, "I'm a property.")
-    
+    available_in_pos = property(get_available_in_pos, set_available_in_pos, None, "I'm a property.")
     
     
     
