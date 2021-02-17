@@ -28,6 +28,24 @@ class FileStore(object):
         with fn.open('wb') as f:
             f.write(requests.get(url, allow_redirects=True, timeout=1).content)
 
+
+    """
+    def process_filepath(self, url):
+        #filename = self.process_filename(url)
+        filepath = IMAGES_CACHE_DIR# + filename
+        return filepath
+
+    def process_filename(self, url):
+        filename = str(uuid.uuid5(uuid.NAMESPACE_URL, url)) + '.jpg'
+        return filename
+    """
+
+    def process_compressed_filename(self, url, extension):
+        filename = str(uuid.uuid5(uuid.NAMESPACE_URL, url)) +'_compressed'+ '.' + extension
+        filepath = IMAGES_CACHE_DIR + filename
+        return filepath
+        
+
     def retrive_url(self, url):
         filename = str(uuid.uuid5(uuid.NAMESPACE_URL, url)) + '.jpg'
         filepath = IMAGES_CACHE_DIR + filename
