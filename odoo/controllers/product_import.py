@@ -167,7 +167,7 @@ class ProductImport:
                     #Update ProductTemplate
                     template = self.api.read(productTemplate.model, domain, productTemplate.props())
                     tmpProductTemplate = ProductTemplate(template[0])
-                    self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['valuation','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'available_in_pos']))#,'public_categ_ids']))
+                    self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['valuation','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'available_in_pos','image_1920']))#,'public_categ_ids']))
                     
                     # Update SupplierInfo
                     tmpProduct = self.__get_product_by_product_tmpl_id(tmpProductTemplate.id)

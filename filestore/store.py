@@ -6,7 +6,7 @@ from pprint import pprint
 import base64
 from pathlib import Path
 import requests
-
+from PIL import Image
 from .config import IMAGES_CACHE_DIR
 
 def ensure_dir(file_path):
@@ -39,10 +39,44 @@ class FileStore(object):
         filename = str(uuid.uuid5(uuid.NAMESPACE_URL, url)) + '.jpg'
         return filename
     """
+    # https://stackoverflow.com/questions/10607468/how-to-reduce-the-image-file-size-using-pil
+    # https://opensource.com/life/15/2/resize-images-python
+    def scale_width(self, image_url, percent):
+        if percent > 1:
+            return None
+        #basewidth = 512
+        input_filename = self.retrive_url(image_url)
+        img = Image.open(input_filename)
+        output_filename = self.process_compressed_filename(image_url)
+        width, height = img.size
+        basewidth = int(width * percent)
+        wpercent = (basewidth / float(img.size[0]))
+        hsize = int((float(img.size[1]) * float(wpercent)))
+        img = img.resize((basewidth, hsize), Image.ANTIALIAS)
+        img.save(output_filename)
 
-    def process_compressed_filename(self, url, extension):
-        filename = str(uuid.uuid5(uuid.NAMESPACE_URL, url)) +'_compressed'+ '.' + extension
-        filepath = IMAGES_CACHE_DIR + filename
+    def scale_height(self, image_url, percent):
+        if percent > 1:
+            return None
+        #baseheight = 512
+        input_filename = self.retrive_url(image_url)
+        img = Image.open(input_filename)
+        output_filename = self.process_compressed_filename(image_url)
+        width, height = img.size
+        baseheight = int(height * percent)
+        hpercent = (baseheight / float(img.size[1]))
+        wsize = int((float(img.size[0]) * float(hpercent)))
+        img = img.resize((wsize, baseheight), Image.ANTIALIAS)
+        img.save(output_filename)
+
+
+
+
+    def process_compressed_filename(self, url):
+        filename = self.retrive_url(url)
+        img = Image.open(filename)
+        compressed_filename = str(uuid.uuid5(uuid.NAMESPACE_URL, url)) +'_compressed'+ '.' + img.format.lower()
+        filepath = IMAGES_CACHE_DIR + compressed_filename
         return filepath
         
 
@@ -91,8 +125,12 @@ class FileStore(object):
         else:
             return None
 
-    def urlretrieve_base64(self, url):
-        filepath = self.retrive_url(url)
+    def urlretrieve_base64(self, url, compressed=False):
+        if compressed:
+            filepath = self.process_compressed_filename(url)
+        else:
+            filepath = self.retrive_url(url)
+
         content  = self.file_content_base64(filepath)
 
         if content != None:
