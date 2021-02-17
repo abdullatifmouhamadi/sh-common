@@ -55,11 +55,29 @@ class FileStore(object):
             fd.close()
             return content#base64.b64encode(content)
 
+    def file_content_base64(self, filepath):
+        if filepath == None:
+            return None
+        else:
+            fd = io.open(filepath, "rb")
+            content = fd.read()
+            fd.close()
+            return base64.b64encode(content)
+
     def urlretrieve(self, url):
         filepath = self.retrive_url(url)
         content  = self.file_content(filepath)
 
         if content != None:
             return content.decode("latin-1")
+        else:
+            return None
+
+    def urlretrieve_base64(self, url):
+        filepath = self.retrive_url(url)
+        content  = self.file_content_base64(filepath)
+
+        if content != None:
+            return content.decode("utf-8")
         else:
             return None
