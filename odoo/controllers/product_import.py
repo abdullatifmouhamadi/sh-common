@@ -73,10 +73,11 @@ class ProductImport:
     def get_or_create_product_category(self, productCategoryObj):
         domain = [('name','=',productCategoryObj.name)]
         model = read_if_exists(api=self.api, model=productCategoryObj.model, domain=domain, fields=['id']) # nom unique
+        print(model)
         if model == False: # Create a new one
-            model = self.api.model(productCategoryObj.model).create(productCategoryObj.provide(['name','child_id','parent_id']))
+            model = self.api.model(productCategoryObj.model).create(productCategoryObj.provide(['name'])) #,'child_id','parent_id'
         else: # then update and return it
-            self.api.write(productCategoryObj.model, [model[0]['id']],productCategoryObj.provide(['name','child_id','parent_id']))
+            self.api.write(productCategoryObj.model, [model[0]['id']],productCategoryObj.provide(['name'])) #,'child_id','parent_id'
         return ProductCategory(read_if_exists(api=self.api, model=productCategoryObj.model, domain=domain, fields=productCategoryObj.props())[0])
 
 
@@ -152,7 +153,7 @@ class ProductImport:
         # On vérifie si un produit existe en fonction d'un codebar donné
         template = read_if_exists(api=self.api, model=productTemplate.model, domain=domain, fields=['id','seller_ids']) #id, seller_ids, product_tmplt_id
 
-        pprint(template[0])
+        #pprint(template)
 
         if (template == False): # Le produit n'existe pas du tlout donc on le crée immédiatement
             print("cas1")
@@ -166,7 +167,8 @@ class ProductImport:
                     #Update ProductTemplate
                     template = self.api.read(productTemplate.model, domain, productTemplate.props())
                     tmpProductTemplate = ProductTemplate(template[0])
-                    self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['valuation','type','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'available_in_pos','image_1920']))#,'public_categ_ids']))
+                    self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['valuation','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'available_in_pos']))#,'public_categ_ids']))
+                    
                     # Update SupplierInfo
                     tmpProduct = self.__get_product_by_product_tmpl_id(tmpProductTemplate.id)
                     
@@ -200,9 +202,9 @@ class ProductImport:
                                                                                   'list_price',
                                                                                   'categ_id',
                                                                                   'image_1920', 
-                                                                                  'available_in_pos'
+                                                                                  'available_in_pos',
                                                                                   #'public_categ_ids',
-                                                                                  'standard_price'
+                                                                                  'standard_price',
                                                                                   'description_sale']))
 
         productTemplObjCreated = template.read()
