@@ -147,7 +147,49 @@ class ProductImport:
         else:
             return SupplierInfo(model[0])
     
-        
+    
+
+    def get_or_create_product_default(self, productTemplate, image_urls):
+        domain = [('default_code','=',productTemplate.default_code)]
+        # On vérifie si un produit existe en fonction d'un codebar donné
+        template = read_if_exists(api=self.api, model=productTemplate.model, domain=domain, fields=['id','default_code', 'seller_ids']) #id, seller_ids, product_tmplt_id
+        if (template == False): # Le produit n'existe pas du tlout donc on le crée immédiatement
+            print("cas1 - Le produit n'existe pas du tlout donc on le crée immédiatement")
+            self.__create_product_default(productTemplate, image_urls)
+        else: # Le produit existe - On fait donc une simple mise à jour
+            print("cas2 - Le produit existe - On fait donc une simple mise à jour")
+            tmpProductTemplate = ProductTemplate(template[0])
+            self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['standard_price', 'taxex_id', 'default_code','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'image_1920']))
+        return None
+
+    def __create_product_default(self, productTemplate, image_urls):
+        template = self.api.model(productTemplate.model).create(productTemplate.provide( ['seller_ids',
+                                                                                  #'location_id',
+                                                                                  'default_code',
+                                                                                  'name',
+                                                                                  'barcode',
+                                                                                  'weight',
+                                                                                  'purchase_ok',
+                                                                                  'taxes_id',
+                                                                                  #'image',
+                                                                                  'sale_ok',
+                                                                                  #'website_published',
+                                                                                  #'cost_method',
+                                                                                  'list_price',
+                                                                                  'categ_id',
+                                                                                  'image_1920', 
+                                                                                  #'available_in_pos',
+                                                                                  #'public_categ_ids',
+                                                                                  'standard_price',
+                                                                                  'description_sale']))
+
+        productTemplObjCreated = template.read()
+        self.__process_images_urls(productTemplate.default_code, image_urls, productTemplObjCreated['id'])
+
+
+
+
+
     def get_or_create_product(self, productTemplate, newSupplierInfo, partner, location, image_urls, product_stock):
         domain = [('barcode','=',productTemplate.barcode)]
         # On vérifie si un produit existe en fonction d'un codebar donné

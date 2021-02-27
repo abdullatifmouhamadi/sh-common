@@ -20,6 +20,12 @@ class ProductTemplate(CoreModel):
         self._type = None
         self._valuation = None
         self._available_in_pos = None
+        self._default_code = None
+        self._taxes_id = None
+
+
+
+
         
         CoreModel.__init__(self, *initial_data, **kwargs)
         self._model = "product.template"
@@ -62,6 +68,13 @@ class ProductTemplate(CoreModel):
         return self._valuation
     def get_available_in_pos(self):
         return self._available_in_pos
+    def get_default_code(self):
+        return self._default_code
+    def get_taxes_id(self):
+        return self._taxes_id
+
+
+
 
         
 
@@ -103,8 +116,12 @@ class ProductTemplate(CoreModel):
         self._valuation = value
     def set_available_in_pos(self, value):
         self._available_in_pos = value
-        
-    
+    def set_default_code(self, value):
+        self._default_code = value
+    def set_taxes_id(self, value):
+        self._taxes_id = value
+
+
     categ_id = property(get_categ_id, set_categ_id, None, "I'm a property.")
     location_id = property(get_location_id, set_location_id, None, "I'm a property.")
     public_categ_ids = property(get_public_categ_ids, set_public_categ_ids, None, "I'm a property.")
@@ -124,6 +141,7 @@ class ProductTemplate(CoreModel):
     type = property(get_type, set_type, None, "I'm a property.")
     valuation = property(get_valuation, set_valuation, None, "I'm a property.")
     available_in_pos = property(get_available_in_pos, set_available_in_pos, None, "I'm a property.")
-    
-    
+    default_code = property(get_default_code, set_default_code, None, "I'm a property.")
+    taxes_id = property(get_taxes_id, set_taxes_id, None, "I'm a property.")
+
     
