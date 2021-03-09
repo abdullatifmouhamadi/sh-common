@@ -7,7 +7,7 @@
 
 from ..helpers.helper import Helper, read_if_exists
 
-from ..models.product import Product, ProductCategory
+from ..models.product import Product, ProductCategory, ProductPOSCategory
 from ..models.supplierinfo import SupplierInfo
 from ..models.partner import Partner
 from ..models.location import Location
@@ -73,7 +73,7 @@ class ProductImport:
     def get_or_create_product_category(self, productCategoryObj):
         domain = [('name','=',productCategoryObj.name)]
         model = read_if_exists(api=self.api, model=productCategoryObj.model, domain=domain, fields=['id']) # nom unique
-        print(model)
+        #print(model)
         if model == False: # Create a new one
             model = self.api.model(productCategoryObj.model).create(productCategoryObj.provide(['name'])) #,'child_id','parent_id'
         else: # then update and return it
@@ -81,6 +81,15 @@ class ProductImport:
         return ProductCategory(read_if_exists(api=self.api, model=productCategoryObj.model, domain=domain, fields=productCategoryObj.props())[0])
 
 
+    def get_or_create_product_pos_category(self, productPOSCategoryObj):
+        domain = [('name','=',productPOSCategoryObj.name)]
+        model = read_if_exists(api=self.api, model=productPOSCategoryObj.model, domain=domain, fields=['id']) # nom unique
+        #print(model)
+        if model == False: # Create a new one
+            model = self.api.model(productPOSCategoryObj.model).create(productPOSCategoryObj.provide(['name'])) #,'child_id','parent_id'
+        else: # then update and return it
+            self.api.write(productPOSCategoryObj.model, [model[0]['id']],productPOSCategoryObj.provide(['name'])) #,'child_id','parent_id'
+        return ProductPOSCategory(read_if_exists(api=self.api, model=productPOSCategoryObj.model, domain=domain, fields=productPOSCategoryObj.props())[0])
 
 
 
@@ -159,13 +168,14 @@ class ProductImport:
         else: # Le produit existe - On fait donc une simple mise à jour
             print("cas2 - Le produit existe - On fait donc une simple mise à jour")
             tmpProductTemplate = ProductTemplate(template[0])
-            self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['available_in_pos', 'barcode', 'standard_price', 'taxex_id', 'default_code','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'image_1920']))
+            self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['pos_categ_id','type', 'available_in_pos', 'barcode', 'standard_price', 'taxex_id', 'default_code','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'image_1920']))
         return None
 
     def __create_product_default(self, productTemplate, image_urls):
         template = self.api.model(productTemplate.model).create(productTemplate.provide( ['seller_ids',
                                                                                   #'location_id',
                                                                                   'default_code',
+                                                                                  'type',
                                                                                   'name',
                                                                                   'barcode',
                                                                                   'weight',
@@ -177,6 +187,7 @@ class ProductImport:
                                                                                   #'cost_method',
                                                                                   'list_price',
                                                                                   'categ_id',
+                                                                                  'pos_categ_id',
                                                                                   'image_1920', 
                                                                                   'available_in_pos',
                                                                                   #'public_categ_ids',
