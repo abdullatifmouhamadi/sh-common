@@ -159,7 +159,7 @@ class ProductImport:
         else: # Le produit existe - On fait donc une simple mise à jour
             print("cas2 - Le produit existe - On fait donc une simple mise à jour")
             tmpProductTemplate = ProductTemplate(template[0])
-            self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['barcode', 'standard_price', 'taxex_id', 'default_code','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'image_1920']))
+            self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['available_in_pos', 'barcode', 'standard_price', 'taxex_id', 'default_code','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'image_1920']))
         return None
 
     def __create_product_default(self, productTemplate, image_urls):
@@ -178,7 +178,7 @@ class ProductImport:
                                                                                   'list_price',
                                                                                   'categ_id',
                                                                                   'image_1920', 
-                                                                                  #'available_in_pos',
+                                                                                  'available_in_pos',
                                                                                   #'public_categ_ids',
                                                                                   'standard_price',
                                                                                   'description_sale']))
