@@ -82,3 +82,24 @@ class ProductPOSCategory(CoreModel):
     child_id = property(get_child_id, set_child_id, None, "I'm a property.")
     parent_id = property(get_parent_id, set_parent_id, None, "I'm a property.")
 
+
+
+class ProductAccountTax(CoreModel):
+    def __init__(self, *initial_data, **kwargs):
+        self._name = None
+        self._amount = None
+        CoreModel.__init__(self, *initial_data, **kwargs)
+        self._model = "account.tax"
+
+    def get_name(self):
+        return self._name
+    def get_amount(self):
+        return self._amount
+    
+    def set_name(self, value):
+        self._name = value
+    def set_amount(self, value):
+        self._amount = value
+
+    name = property(get_name, set_name, None, "I'm a property.")
+    amount = property(get_amount, set_amount, None, "I'm a property.")

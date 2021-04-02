@@ -12,7 +12,7 @@ from ..models.supplierinfo import SupplierInfo
 from ..models.partner import Partner
 from ..models.location import Location
 from ..models.product_image import ProductImage
-from ..models.product import Product
+from ..models.product import Product, ProductAccountTax
 from ..models.product_template import ProductTemplate
 from ..models.product_public_category import ProductPublicCategory
 from ..models.supplierinfo import SupplierInfo
@@ -37,6 +37,22 @@ class ProductImport:
         self.product_public_category = "product.public.category"
         #self.product_image = "product.image"
 
+
+    def test_generic(self):
+        domain = [('amount','=',5.5)]
+        """
+        a = self.api.model('account.tax').browse([], limit=None).read()
+        pprint(a)
+        """
+
+        model = read_if_exists(api=self.api, model='account.tax', domain=domain, fields=['id','name','amount'])
+        pprint(model)
+
+
+
+    def find_taxe(self, value):
+
+        return ""
 
     def __process_images_urls(self,codebar, urls, product_tmpl_id):
         count=1
@@ -163,12 +179,12 @@ class ProductImport:
         # On vérifie si un produit existe en fonction d'un codebar donné
         template = read_if_exists(api=self.api, model=productTemplate.model, domain=domain, fields=['id','default_code', 'seller_ids']) #id, seller_ids, product_tmplt_id
         if (template == False): # Le produit n'existe pas du tlout donc on le crée immédiatement
-            print("cas1 - Le produit n'existe pas du tlout donc on le crée immédiatement")
+            print("cas1 - Le produit n'existe pas du tout donc on le crée immédiatement")
             self.__create_product_default(productTemplate, image_urls)
         else: # Le produit existe - On fait donc une simple mise à jour
             print("cas2 - Le produit existe - On fait donc une simple mise à jour")
             tmpProductTemplate = ProductTemplate(template[0])
-            self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['pos_categ_id','type', 'available_in_pos', 'barcode', 'list_price', 'taxex_id', 'default_code','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'image_1920']))
+            self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['pos_categ_id','type', 'available_in_pos', 'barcode', 'list_price', 'taxes_id', 'default_code','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'image_1920']))
         return None
 
     def __create_product_default(self, productTemplate, image_urls):
