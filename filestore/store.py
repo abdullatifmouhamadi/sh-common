@@ -21,7 +21,10 @@ class FileStore(object):
     def __init__(self, dirname = None):
         self.dirname = dirname
 
-        ensure_dir(IMAGES_CACHE_DIR)
+        if self.dirname == None:
+            self.dirname = IMAGES_CACHE_DIR
+        
+        ensure_dir(self.dirname)
         
     # https://www.scivision.dev/python-switch-urlretrieve-requests-timeout/
     def urlretrieve3(self, url: str, fn: Path):
@@ -76,13 +79,13 @@ class FileStore(object):
         filename = self.retrive_url(url)
         img = Image.open(filename)
         compressed_filename = str(uuid.uuid5(uuid.NAMESPACE_URL, url)) +'_compressed'+ '.' + img.format.lower()
-        filepath = IMAGES_CACHE_DIR + compressed_filename
+        filepath = self.dirname + compressed_filename
         return filepath
         
 
     def retrive_url(self, url):
         filename = str(uuid.uuid5(uuid.NAMESPACE_URL, url)) + '.jpg'
-        filepath = IMAGES_CACHE_DIR + filename
+        filepath = self.dirname + filename
         if not os.path.exists( filepath ) or not os.path.getsize( filepath ) > 0:
             try:
                 self.urlretrieve3( url , Path(filepath) )
