@@ -8,6 +8,9 @@ from pathlib import Path
 import requests
 from PIL import Image
 from .config import IMAGES_CACHE_DIR
+from urllib.parse import urlparse
+from PIL.Image import Image as PilImage
+
 
 def ensure_dir(file_path):
     #print(file_path)
@@ -140,3 +143,18 @@ class FileStore(object):
             return content.decode("utf-8")
         else:
             return None
+
+    def urlretrive_PilImage(self, url:str, filename, compressed=False) -> PilImage:
+        if compressed:
+            filepath = self.process_compressed_filename(url)
+        else:
+            filepath = self.retrive_url(url)
+
+        content  = self.file_content(filepath)
+
+        bts = io.BytesIO(content)
+        im = Image.open(bts)
+        im.filename = filename
+
+        return im
+
