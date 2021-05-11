@@ -81,7 +81,7 @@ class FileStore(object):
     def process_compressed_filename(self, url):
         filename = self.retrive_url(url)
         img = Image.open(filename)
-        compressed_filename = str(uuid.uuid5(uuid.NAMESPACE_URL, url)) +'_compressed'+ '.' + img.format.lower()
+        compressed_filename = str(uuid.uuid5(uuid.NAMESPACE_URL, url)) +'-compressed'+ '.' + img.format.lower()
         filepath = self.dirname + compressed_filename
         return filepath
         
