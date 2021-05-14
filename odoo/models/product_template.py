@@ -1,6 +1,7 @@
 from .core_model import CoreModel
 class ProductTemplate(CoreModel):
     def __init__(self, *initial_data, **kwargs):
+        self._company_id = None
         self._categ_id = None
         self._pos_categ_id = None
         self._location_id = None
@@ -30,7 +31,9 @@ class ProductTemplate(CoreModel):
         
         CoreModel.__init__(self, *initial_data, **kwargs)
         self._model = "product.template"
-        
+
+    def get_company_id(self):
+        return self._company_id
     def get_categ_id(self):
         return self._categ_id
     def get_pos_categ_id(self):
@@ -77,7 +80,8 @@ class ProductTemplate(CoreModel):
         return self._taxes_id
 
 
-
+    def set_company_id(self, value):
+        self._company_id = value
     def set_categ_id(self, value):
         self._categ_id = value
     def set_pos_categ_id(self, value):
@@ -125,7 +129,7 @@ class ProductTemplate(CoreModel):
 
 
 
-
+    company_id = property(get_company_id, set_company_id, None, "I'm a property.")
     categ_id = property(get_categ_id, set_categ_id, None, "I'm a property.")
     pos_categ_id = property(get_pos_categ_id, set_pos_categ_id, None, "I'm a property.")
     location_id = property(get_location_id, set_location_id, None, "I'm a property.")
