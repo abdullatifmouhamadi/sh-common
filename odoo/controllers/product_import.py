@@ -172,24 +172,25 @@ class ProductImport:
         else:
             return SupplierInfo(model[0])
     
-    
+
 
     def get_or_create_product_default(self, productTemplate, image_urls):
         domain = [('default_code','=',productTemplate.default_code)]
         # On vérifie si un produit existe en fonction d'un codebar donné
-        template = read_if_exists(api=self.api, model=productTemplate.model, domain=domain, fields=['id','default_code', 'seller_ids']) #id, seller_ids, product_tmplt_id
+        template = read_if_exists(api=self.api, model=productTemplate.model, domain=domain, fields=['company_id', 'taxes_id','id','default_code', 'seller_ids']) #id, seller_ids, product_tmplt_id
+        #print(template)
         if (template == False): # Le produit n'existe pas du tlout donc on le crée immédiatement
             print("cas1 - Le produit n'existe pas du tout donc on le crée immédiatement")
             self.__create_product_default(productTemplate, image_urls)
         else: # Le produit existe - On fait donc une simple mise à jour
             print("cas2 - Le produit existe - On fait donc une simple mise à jour")
             tmpProductTemplate = ProductTemplate(template[0])
-            self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['company_id', 'pos_categ_id','type', 'available_in_pos', 'barcode', 'list_price', 'taxes_id', 'default_code','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'image_1920']))
+            self.api.write(productTemplate.model, [tmpProductTemplate.id], productTemplate.provide(['pos_categ_id','type', 'available_in_pos', 'barcode', 'list_price', 'taxes_id', 'default_code','standard_price', 'name', 'weight', 'list_price', 'categ_id', 'description_sale', 'image_1920']))
         return None
 
     def __create_product_default(self, productTemplate, image_urls):
         template = self.api.model(productTemplate.model).create(productTemplate.provide( ['seller_ids',
-                                                                                  'company_id',
+                                                                                  #'company_id',
                                                                                   #'location_id',
                                                                                   'default_code',
                                                                                   'type',
@@ -282,3 +283,4 @@ class ProductImport:
         
         
         
+
