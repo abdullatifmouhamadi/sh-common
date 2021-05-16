@@ -1,6 +1,6 @@
  # /usr/bin/python
 
-from sh import ls, printenv, Command, echo, chown, mkdir, wget, unzip, rm, php72, chmod, mv
+from sh import ls, printenv, Command, echo, chown, mkdir, wget, unzip, rm, php73, chmod, mv
 from sh.contrib import git
 import sh, contextlib, os
 from .releases import RELEASES, release_filename, REPO, release_extract_dir
@@ -55,7 +55,7 @@ def install(installDir, domain, db_server, db_name, db_user, db_password, admin_
     log( "Installing from index_cli.php ... " )
     cli = installDir + 'install/index_cli.php' 
 
-    r = php72(cli, "--domain={}".format(domain),
+    r = php73(cli, "--domain={}".format(domain),
                    "--db_server={}".format(db_server),
                    "--db_name={}".format(db_name),
                    "--db_user={}".format(db_user),
